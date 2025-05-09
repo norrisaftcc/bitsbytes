@@ -237,6 +237,12 @@ Several enhancements are planned for future development:
    - Create configuration profiles for different environments
    - Add CI/CD pipeline templates
 
+## Recent Bugfixes
+
+- Fixed compatibility issue with Streamlit 1.45.0 by updating the fragment implementation
+- Updated fragment rerun mechanism to use `st.rerun()` instead of deprecated `st.fragment_rerun()`
+- Simplified fragment decorators to improve reliability
+
 ## About
 
 This app was created for collecting anonymous questions. The "marshmallow" metaphor represents the soft, anonymous nature of the questions - anyone can toss one into the pile, and anyone can pick one out.

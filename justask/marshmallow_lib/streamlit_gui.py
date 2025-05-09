@@ -149,30 +149,8 @@ def log_debug_info(message: str):
         st.markdown(f"<div class='debug-info'>Debug - {message}</div>", unsafe_allow_html=True)
 
 
-def with_fragment_key(key_prefix: str):
-    """
-    Decorator to generate unique fragment keys for functions.
-    
-    Args:
-        key_prefix: Prefix for the fragment key
-        
-    Returns:
-        Decorator function
-    """
-    def decorator(func: Callable):
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            # Create a unique key combining the prefix with function name
-            fragment_key = f"{key_prefix}_{func.__name__}"
-            
-            # Apply st.fragment decorator with the key
-            fragment_decorated = st.fragment(key=fragment_key)(func)
-            return fragment_decorated(*args, **kwargs)
-        return wrapper
-    return decorator
-
-
-@with_fragment_key("fragment")
+# Use st.fragment directly without custom decorator
+@st.fragment
 def add_marshmallow_tab():
     """Render the Add a Marshmallow tab."""
     manager = SessionState.get_manager()
@@ -196,7 +174,7 @@ def add_marshmallow_tab():
                 st.error("Please enter a question before submitting.")
 
 
-@with_fragment_key("fragment")
+@st.fragment
 def random_marshmallow_tab():
     """Render the Pick a Random Marshmallow tab."""
     manager = SessionState.get_manager()
@@ -223,12 +201,12 @@ def random_marshmallow_tab():
             # Add voting option for random questions
             if st.button(f"👍 Vote ({random_question['votes']})", key=f"vote_random_{random_question['id']}"):
                 manager.vote_for_question(random_question['id'])
-                st.fragment_rerun()  # Only rerun this fragment instead of whole page
+                st.rerun()  # Rerun the page
         else:
             st.info("No marshmallows available. Be the first to add one!")
 
 
-@with_fragment_key("fragment")
+@st.fragment
 def display_question(q, is_admin=False):
     """
     Display a single question with its controls.
@@ -266,35 +244,35 @@ def display_question(q, is_admin=False):
                 if q["status"] == "pending":
                     if st.button(f"Approve #{q['id']}", key=f"approve_{q['id']}"):
                         manager.set_question_status(q['id'], "approved")
-                        st.fragment_rerun()
+                        st.rerun()
                 else:
                     if st.button(f"Hide #{q['id']}", key=f"hide_{q['id']}"):
                         manager.set_question_status(q['id'], "pending")
-                        st.fragment_rerun()
+                        st.rerun()
             
             with col2:
                 if not q["highlighted"]:
                     if st.button(f"Highlight #{q['id']}", key=f"highlight_{q['id']}"):
                         manager.highlight_question(q['id'], True)
-                        st.fragment_rerun()
+                        st.rerun()
                 else:
                     if st.button(f"Unhighlight #{q['id']}", key=f"unhighlight_{q['id']}"):
                         manager.highlight_question(q['id'], False)
-                        st.fragment_rerun()
+                        st.rerun()
             
             with col3:
                 if st.button(f"Delete #{q['id']}", key=f"delete_{q['id']}"):
                     manager.delete_question(q['id'])
-                    st.fragment_rerun()
+                    st.rerun()
         
         # User controls - voting
         if not is_admin:
             if st.button(f"👍 Vote ({q['votes']})", key=f"vote_{q['id']}"):
                 manager.vote_for_question(q['id'])
-                st.fragment_rerun()
+                st.rerun()
 
 
-@with_fragment_key("fragment")
+@st.fragment
 def all_marshmallows_tab():
     """Render the See All Marshmallows tab."""
     manager = SessionState.get_manager()
@@ -352,7 +330,7 @@ def all_marshmallows_tab():
         st.info("No marshmallows have been added yet. Be the first!")
 
 
-@with_fragment_key("fragment")
+@st.fragment
 def admin_section():
     """Render the admin controls section at the bottom of the page."""
     manager = SessionState.get_manager()
