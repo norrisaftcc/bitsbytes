@@ -394,15 +394,11 @@ def run_streamlit_app(storage_type: str = "memory"):
     st.markdown("<h1 class='main-header'>Marshmallows - Anonymous Questions</h1>", unsafe_allow_html=True)
     
     # Create tabs for different functionalities
-    # Use session state to track the active tab
-    def on_tab_change():
+    tab1, tab2, tab3 = st.tabs(["Add a Marshmallow", "Pick a Random Marshmallow", "See All Marshmallows"])
+    
+    # Track which tab is selected (can't use on_change with tabs directly)
+    if "tabs" in st.session_state:
         SessionState.set_current_tab(st.session_state.tabs)
-        
-    tab1, tab2, tab3 = st.tabs(
-        ["Add a Marshmallow", "Pick a Random Marshmallow", "See All Marshmallows"],
-        key="tabs",
-        on_change=on_tab_change
-    )
     
     # Tab 1: Add a Marshmallow (Ask Questions)
     with tab1:
