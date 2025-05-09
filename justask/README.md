@@ -203,6 +203,40 @@ The application includes a testing suite with both pytest and doctest-based test
    - Self-documenting tests that also serve as usage examples
    - Easy to maintain and understand
 
+## Future Plans
+
+Several enhancements are planned for future development:
+
+1. **Enhanced Testing**:
+   - Expand test coverage to include UI components
+   - Add integration tests for the complete application flow
+   - Implement automated UI testing with Selenium or similar tools
+
+2. **Database Integration**:
+   - Add support for SQL databases (SQLite, PostgreSQL, MySQL)
+   - Implement a MongoDB option for document-based storage
+   - Create a pluggable storage system for easy extension
+
+3. **Security Improvements**:
+   - Add proper authentication for admin access
+   - Implement rate limiting to prevent abuse
+   - Add content moderation capabilities
+
+4. **UI Enhancements**:
+   - Create a comprehensive theme system
+   - Add dark/light mode toggle
+   - Improve mobile responsiveness
+
+5. **Performance Monitoring**:
+   - Add telemetry to track application performance
+   - Implement caching for frequently accessed data
+   - Optimize large dataset handling
+
+6. **Deployability**:
+   - Add Docker support for containerized deployment
+   - Create configuration profiles for different environments
+   - Add CI/CD pipeline templates
+
 ## About
 
 This app was created for collecting anonymous questions. The "marshmallow" metaphor represents the soft, anonymous nature of the questions - anyone can toss one into the pile, and anyone can pick one out.
