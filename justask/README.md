@@ -13,6 +13,7 @@ A modular application for collecting and sharing anonymous questions ("marshmall
 - **Debug Mode**: Toggle to view session state information for troubleshooting
 - **Responsive Design**: Works on desktop and mobile devices
 - **Visual Styling**: High-contrast interface for better readability
+- **Performance Optimized**: Uses modern Streamlit features and efficient data structures
 
 ## Project Structure
 
@@ -24,6 +25,9 @@ This application follows a modular architecture:
   - `console_gui.py`: Text-based console interface
 - **app.py**: Main entry point for the Streamlit web application
 - **console_app.py**: Main entry point for the console application
+- **tests/**: Unit tests for the application
+  - `test_core.py`: pytest tests for core functionality
+  - `test_core_doctest.py`: doctest-based tests for core functionality
 
 ## Quick Start
 
@@ -50,6 +54,18 @@ streamlit run app.py
 5. Alternatively, run the console-based application
 ```bash
 python console_app.py
+```
+
+### Running Tests
+
+The application includes both pytest and doctest-based tests:
+
+```bash
+# Run pytest tests
+python -m pytest tests/test_core.py -v
+
+# Run doctests
+python -m doctest tests/test_core_doctest.py -v
 ```
 
 ### Deployment
@@ -152,6 +168,21 @@ The codebase is organized into distinct modules:
 - **Testability**: Core logic can be tested independently from the UI
 - **Flexibility**: New interfaces can be added without modifying existing code
 
+### Performance Optimizations
+
+1. **Efficient Data Structures**:
+   - Dictionary-based lookups for O(1) operations instead of linear searches
+   - Improved algorithms for sorting and filtering
+
+2. **Modern Streamlit Features**:
+   - Using `st.fragment` for partial UI updates instead of full page reruns
+   - Properly managed session state with consistent access patterns
+   - Callback-based widget interactions
+
+3. **Resource Efficiency**:
+   - Minimized dependencies for faster installation and smaller footprint
+   - Optimized file operations with batching where appropriate
+
 ### Storage Options
 
 Both interfaces support two storage options:
@@ -159,6 +190,18 @@ Both interfaces support two storage options:
 - **File-based storage**: Data persists across sessions (default for console interface)
 
 This separation allows for easy extension to other storage backends (databases, cloud storage, etc.) in the future.
+
+## Testing Strategy
+
+The application includes a testing suite with both pytest and doctest-based tests:
+
+1. **Unit Tests (pytest)**:
+   - Tests for core functionality in isolation
+   - Comprehensive coverage of key features
+
+2. **Doctests**:
+   - Self-documenting tests that also serve as usage examples
+   - Easy to maintain and understand
 
 ## About
 
